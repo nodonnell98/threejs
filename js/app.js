@@ -70,8 +70,8 @@ function animate() {
    // call animate recursively
    window.requestAnimationFrame( animate );
    mesh.rotation.z += 0.01;
-   mesh.rotation.x += 0.01;
-   mesh.rotation.y += 0.01;
+    mesh.rotation.x += 0.01;
+    mesh.rotation.y += 0.01;
  
    // render, or 'create a still image', of the scene
    // this will create one still image / frame each time the animate
