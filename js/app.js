@@ -13,8 +13,8 @@ function init() {
   // create a Scene
   scene = new THREE.Scene();
 
-  scene.background = new THREE.Color( 0x0ddde8 );
-
+  scene.background = new THREE.Color( 0x02c2af);
+//0ddde8
   // set up the options for a perspective camera
   const fov = 35; // fov = Field Of View
   const aspect = container.clientWidth / container.clientHeight;
@@ -79,6 +79,16 @@ function animate() {
    renderer.render( scene, camera );
 
 }
+
+var onKeyDown = function(event) {
+  if (event.keyCode == 67) { // when 'c' is pressed
+  let materialColor = "0x" + Math.floor(Math.random()*16777215).toString(16);
+  mesh.material.color.setHex(materialColor); // there is also setHSV and setRGB
+  }
+};
+
+document.addEventListener('keydown', onKeyDown, false);
+
 
 // call the init function to set everything up
 init();
