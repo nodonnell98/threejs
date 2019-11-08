@@ -4,6 +4,7 @@ let camera;
 let renderer;
 let scene;
 let mesh;
+let button = document.getElementById('colourBtn');
 
 function init() {
 
@@ -80,14 +81,16 @@ function animate() {
 
 }
 
-var onKeyDown = function(event) {
-  if (event.keyCode == 67) { // when 'c' is pressed
+var colourChange = function(event) {
+ 
   let materialColor = "0x" + Math.floor(Math.random()*16777215).toString(16);
   mesh.material.color.setHex(materialColor); // there is also setHSV and setRGB
-  }
-};
 
-document.addEventListener('keydown', onKeyDown, false);
+  
+  }
+
+button.addEventListener('click', colourChange, false);
+
 
 
 // call the init function to set everything up

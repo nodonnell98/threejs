@@ -5,16 +5,11 @@ body {
     text-align: center;
   }
   
-  h1 {
-    margin-left: 5%;
-    left: 0%;
-    font-size: 2.5rem;
-    font-family: Arial, Helvetica, sans-serif;
-    color: white;
-  }
 
   nav{
     position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     background-color: transparent;
     z-index: 1;
@@ -32,9 +27,55 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    opacity: 0.5;
+    opacity: 0.8;
 
   }
 
+  .flexContainer{
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: transparent;
+    
+  }
 
+  .flexChild{
+    display: flex;
+    height: 100%;
+    font-size: 2.5rem;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    background-color: transparent;
+    text-align: center;
+  }
+
+  #name{
+    flex: 2;  
+    margin-left: 5%  
+  }
+
+  .spacer5{
+    flex: 5;    
+  }
+
+  .spacer1{
+    flex: 1;
+  }
+
+  
+
+  #colourBtn{
+    font-size: 1.7rem;      
+    border-radius: 30px;
+    padding: 10px 20px 10px 20px;    
+    text-align: center;
+    background-color: transparent;
+    border-color: white;
+    border-width: 2;
+    margin-left: 0;
+  }
+
+  #colourBtn:focus {outline:0;}
  
