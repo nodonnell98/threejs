@@ -32,6 +32,8 @@ function init() {
   // create a geometry
   const geometry = new THREE.BoxBufferGeometry( 2, 2, 2 );
 
+
+
   //create material
   const material = new THREE.MeshStandardMaterial( { color: 0x800080 } );
 
@@ -44,7 +46,7 @@ function init() {
   // increase the mesh's rotation each frame
  
   // Create a directional light
-  const light = new THREE.DirectionalLight( 0xffffff, 3.0 );
+  const light = new THREE.DirectionalLight( 0xffffff, 5.0 );
 
   // move the light back and up a bit
   light.position.set( 10, 10, 10 );
@@ -65,19 +67,27 @@ function init() {
 
 
 }
+init();
+// start the animation loop
+renderer.setAnimationLoop( () => {
 
-function animate() {
+  update();
+  render();
 
-   // call animate recursively
-   window.requestAnimationFrame( animate );
-   mesh.rotation.z += 0.01;
-    mesh.rotation.x += 0.01;
-    mesh.rotation.y += 0.01;
- 
-   // render, or 'create a still image', of the scene
-   // this will create one still image / frame each time the animate
-   // function calls itself
-   renderer.render( scene, camera );
+} );
+
+function update() {
+
+  // increase the mesh's rotation each frame
+  mesh.rotation.z += 0.01;
+  mesh.rotation.x += 0.01;
+  mesh.rotation.y += 0.01;
+
+}
+
+function render() {
+
+  renderer.render( scene, camera );
 
 }
 
@@ -94,10 +104,25 @@ var colourChange = function(event) {
 
 button.addEventListener('click', colourChange, false);
 
+// a function that will be called every time the window gets resized.
+// It can get called a lot, so don't put any heavy computation in here!
+function onWindowResize() {
+
+  // set the aspect ratio to match the new browser window aspect ratio
+  camera.aspect = container.clientWidth / container.clientHeight;
 
 
-// call the init function to set everything up
-init();
+  // update the camera's frustum
+  camera.updateProjectionMatrix();
 
-// then call the animate function to render the scene
-animate();
+  // update the size of the renderer AND the canvas
+  renderer.setSize( container.clientWidth, container.clientHeight );
+
+}
+
+window.addEventListener( 'resize', onWindowResize );
+
+
+
+
+
