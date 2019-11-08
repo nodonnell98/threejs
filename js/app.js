@@ -44,7 +44,7 @@ function init() {
   // increase the mesh's rotation each frame
  
   // Create a directional light
-  const light = new THREE.DirectionalLight( 0xffffff, 5.0 );
+  const light = new THREE.DirectionalLight( 0xffffff, 3.0 );
 
   // move the light back and up a bit
   light.position.set( 10, 10, 10 );
@@ -83,9 +83,12 @@ function animate() {
 
 var colourChange = function(event) {
  
-  let materialColor = "0x" + Math.floor(Math.random()*16777215).toString(16);
-  mesh.material.color.setHex(materialColor); // there is also setHSV and setRGB
+  let newColor = Math.floor(Math.random()*16777215).toString(16);
+  let materialColor = "0x" + newColor.toString();
+  let buttonColor = "#" + newColor.toString();
 
+  mesh.material.color.setHex(materialColor); // there is also setHSV and setRGB
+  button.style.backgroundColor = buttonColor;
   
   }
 

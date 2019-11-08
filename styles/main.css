@@ -27,7 +27,7 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    opacity: 0.8;
+    
 
   }
 
@@ -57,7 +57,7 @@ body {
   }
 
   .spacer5{
-    flex: 5;    
+    flex: 8;    
   }
 
   .spacer1{
@@ -71,9 +71,8 @@ body {
     border-radius: 30px;
     padding: 10px 20px 10px 20px;    
     text-align: center;
-    background-color: transparent;
-    border-color: white;
-    border-width: 2;
+    background-color: #bd03bd;
+    border: none;
     margin-left: 0;
   }
 
