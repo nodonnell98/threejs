@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
+<head>
 
-    <title>Discoverthreejs.com Ch 1.1: Your First Scene</title>
+  <title>Discoverthreejs.com Ch 1.1: Your First Scene</title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <meta charset="UTF-8" />
+  <meta charset="UTF-8" />
 
-    <link rel="icon" href="https://discoverthreejs.com/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="https://discoverthreejs.com/favicon.ico" type="image/x-icon">
 
-    <link href="styles/main.css" rel="stylesheet" type="text/css">
+  <link href="styles/main.css" rel="stylesheet" type="text/css">
 
-    <!--
+  <!--
 
       Include the main three.js script.
 
@@ -23,8 +23,8 @@
 
     -->
 
-    <script src="./js/vendor/three.js"></script>
-     <!--
+  <script src="./js/vendor/three.js"></script>
+  <!--
 
       Include the OrbitControls script.
 
@@ -33,36 +33,34 @@
 
     -->
 
-    <script src="js/vendor/three/OrbitControls.js"></script>
+  <script src="js/vendor/three/OrbitControls.js"></script>
 
 
-  </head>
+</head>
 
-  <body>
+<body>
 
-    <nav class="flexContainer">
-        
-   <h1 id="name" class = "flexChild">Niall O'Donnell</h1>
-   
-   <button id="colourBtn" class="flexChild">Change Colour</button>
-   <p class="spacer5" class="flexChild"></p>
-    
-    </nav>
-    
-
-    <div id="scene-container">
-      
-      <!-- This div will hold our scene-->
-    </div>
+  <nav class="flexContainer">
+    <h1 id="name" class="flexChild">Niall O'Donnell</h1>
+    <button id="colourBtn" class="flexChild">Change Colour</button>
+    <input type="number" max="1" step="0.1"  min="0" value="set X rotation" id="inputX" class="flexChild">
+    <p class="spacer5" class="flexChild"></p>
+  </nav>
 
 
-    <!--
+  <div id="scene-container">
+
+    <!-- This div will hold our scene-->
+  </div>
+
+
+  <!--
       Finally, include the script that
       runs your three.js app.
     -->
 
-    <script src="./js/app.js"></script>
+  <script src="./js/app.js"></script>
 
-  </body>
+</body>
 
 </html>

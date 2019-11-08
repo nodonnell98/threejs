@@ -6,6 +6,8 @@ let renderer;
 let scene;
 let mesh;
 let button = document.getElementById('colourBtn');
+let inputX = document.getElementById('inputX');
+let rotation = 0.005;
 
 function init() {
 
@@ -70,7 +72,7 @@ function createMeshes() {
 
   const textureLoader = new THREE.TextureLoader();
 
-  const texture = textureLoader.load( 'textures/uv_test_bw.png' );
+  const texture = textureLoader.load( 'textures/cat.png' );
 
   texture.encoding = THREE.sRGBEncoding;
   texture.anisotropy = 16;
@@ -85,6 +87,8 @@ function createMeshes() {
   mesh = new THREE.Mesh( geometry, material );
 
   scene.add( mesh );
+
+  
 
 }
 
@@ -107,9 +111,12 @@ function createRenderer() {
 // perform any updates to the scene, called once per frame
 // avoid heavy computation here
 function update() {
-
+  mesh.rotation.z += rotation;
+  mesh.rotation.x += rotation;
+  mesh.rotation.y += rotation;
+  
   // Don't delete this function!
-
+  
 }
 
 // render, or 'draw a still image', of the scene
@@ -150,3 +157,10 @@ var colourChange = function(event) {
   }
 
   button.addEventListener('click', colourChange, false);
+
+  var changeRotation = function(event){
+    rotation = inputX.innerHTML;
+  }
+
+  inputX.addEventListener('change', changeRotation, false);
+

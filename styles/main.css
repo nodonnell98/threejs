@@ -57,13 +57,19 @@ body {
   }
 
   .spacer5{
-    flex: 8;    
+    flex: 5;    
   }
 
   .spacer1{
     flex: 1;
   }
 
+  #inputX{    
+    margin-left: 3%;
+    background-color: thistle;
+    color: white;
+    width: 5%;
+  }
   
 
   #colourBtn{
@@ -74,6 +80,7 @@ body {
     background-color: #bd03bd;
     border: none;
     margin-left: 0;
+    transition: 300ms;
   }
 
   #colourBtn:focus {outline:0;}
