@@ -52,8 +52,8 @@ function createControls() {
 function createLights() {
 
   const ambientLight = new THREE.HemisphereLight(
-    0xffffff, // sky color
-    0x020020, // ground color
+    0xddeeff, // sky color
+    0x202020, // ground color
     5, // intensity
   );
 
