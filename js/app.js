@@ -4,10 +4,11 @@ let camera;
 let controls;
 let renderer;
 let scene;
-let mesh;
+
+const mixers = [];
+const clock = new THREE.Clock();
+
 let button = document.getElementById('colourBtn');
-let inputX = document.getElementById('inputX');
-let rotation = 0.01;
 
 function init() {
 
@@ -19,8 +20,8 @@ function init() {
   createCamera();
   createControls();
   createLights();
-  createMeshes();
   createRenderer();
+  loadModels();
 
   // start the animation loop
   renderer.setAnimationLoop( () => {
@@ -41,7 +42,7 @@ function createCamera() {
     100, // far clipping plane
   );
 
-  camera.position.set( -15, 8, 12 );
+camera.position.set( -20, 15, 40 );
 
 }
 
@@ -66,127 +67,52 @@ function createLights() {
 
 }
 
-function createMaterials() {
-
-  // we'll create a red materials for the body
-  // and a dark grey material for the details here
-  
-  const body = new THREE.MeshStandardMaterial( {
-    color: 0xff3333, // red
-    flatShading: true,
-  } );
-
-  // just as with textures, we need to put colors into linear color space
-  body.color.convertSRGBToLinear();
-
-  const detail = new THREE.MeshStandardMaterial( {
-    color: 0x333333, // darkgrey
-    flatShading: true,
-  } );
-
-  detail.color.convertSRGBToLinear();
-
-  const base = new THREE.MeshStandardMaterial( {
-    color: 0xd6d5d1, //grey
-    flatShading: false,
-  });
-
-  base.color.convertSRGBToLinear();
-
-  return {
-
-    body,
-    detail,
-    base,
-
-  };
 
 
+function loadModels() {
 
-}
+  // ready and waiting for your code!
+  const loader = new THREE.GLTFLoader();
 
-function createGeometries() {
+  const onLoad = ( gltf, position ) => {
 
-  // we'll create geometries for the nose, cabin, chimney, and wheels here
-  const nose = new THREE.CylinderBufferGeometry( 0.75, 0.75, 3, 12 );
-  const cabin = new THREE.BoxBufferGeometry( 2, 2.25, 1.5 );
-  const chimney = new THREE.CylinderBufferGeometry( 0.3, 0.1, 0.5 );
-  const wheel = new THREE.CylinderBufferGeometry( 0.4, 0.4, 1.75, 16 );
-  wheel.rotateX( Math.PI / 2 );
-  const platform = new THREE.CylinderBufferGeometry(5, 5, 0.1, 100);
-
-
-  return{
-    nose,
-    cabin,
-    chimney,
-    wheel,
-    platform,
-  };
-
-}
-
-function createMeshes() {
-
-  const train = new THREE.Group();
-  scene.add(train);
-
-  const materials = createMaterials();
-  const geometries = createGeometries();
-
-  const nose = new THREE.Mesh( geometries.nose, materials.body );
-  nose.rotation.z = Math.PI / 2;
-  nose.position.x = -1;
-
-  const cabin = new THREE.Mesh( geometries.cabin, materials.body );
-  cabin.position.set( 1.5, 0.4, 0 );
-
-  const chimney = new THREE.Mesh( geometries.chimney, materials.detail );
-  chimney.position.set( -2, 0.9, 0 );
-
-  const smallWheelRear = new THREE.Mesh( geometries.wheel, materials.detail );
-  smallWheelRear.position.set( 0, -0.5, 0 );
-
-  const smallWheelCenter = smallWheelRear.clone();
-  smallWheelCenter.position.x = -1;
-
-  const smallWheelFront = smallWheelRear.clone();
-  smallWheelFront.position.x = -2;
-
-  const bigWheel = smallWheelRear.clone();
-  bigWheel.scale.set( 2, 2, 1.25 );
-  bigWheel.position.set( 1.5, -0.1, 0 );
-
-  const trainPlatform = new THREE.Mesh(geometries.platform, materials.base);
-  trainPlatform.position.set(0, -0.95, 0)
-
-  train.add(
-    nose,
-    cabin,
-    chimney,
-
-    smallWheelRear,
-    smallWheelCenter,
-    smallWheelFront,
-    bigWheel,    
-  );
-
-  scene.add(trainPlatform);
-
- 
-  var colourChange = function(event) {
- 
-    let newColor = Math.floor(Math.random()*16777215).toString(16);
-    let materialColor = "0x" + newColor.toString();
-    let buttonColor = "#" + newColor.toString();
-  
-    materials.body.color.setHex(materialColor); // there is also setHSV and setRGB
-    button.style.backgroundColor = buttonColor;
+    const model = gltf.scene.children[ 0 ];
+    model.position.copy( position );
     
-    }
+
+    const animation = gltf.animations[ 0 ];
+
+    const mixer = new THREE.AnimationMixer( model );
+    mixers.push( mixer );
+
+    const action = mixer.clipAction( animation );
+    action.play();
+
+    model.scale.set(0.1, 0.1, 0.1);
+
+    scene.add( model );
+
+  };
+
+  // the loader will report the loading progress to this function
+  const onProgress = () => {};
+
+  // the loader will send any error messages to this function, and we'll log
+  // them to to console
+  const onError = ( errorMessage ) => { console.log( errorMessage ); };
+
+  const parrotPosition = new THREE.Vector3( -5, 0, 10 );
+  loader.load('models/Parrot.glb', gltf => onLoad( gltf, parrotPosition ), onProgress, onError );
+
+  const flamingoPosition = new THREE.Vector3( 5, 5, 0 );
+  loader.load('models/Flamingo.glb', gltf => onLoad( gltf, flamingoPosition ), onProgress, onError );
+
+  const storkPosition = new THREE.Vector3( -10, 5, -10 );
+  loader.load('models/Stork.glb', gltf => onLoad( gltf, storkPosition ), onProgress, onError );
   
-    button.addEventListener('click', colourChange, false);
+  
 }
+
 
 function createRenderer() {
 
@@ -207,10 +133,13 @@ function createRenderer() {
 // perform any updates to the scene, called once per frame
 // avoid heavy computation here
 function update() {
-  
-scene.rotation.y += 0.005;
-  
   // Don't delete this function!
+
+  const delta = clock.getDelta();
+
+  for(const mixer of mixers){
+    mixer.update(delta);
+  }
   
 }
 
