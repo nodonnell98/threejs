@@ -7,7 +7,10 @@ let scene;
 const people = new THREE.Group();
 let mixer;
 let clock = new THREE.Clock();
-var raycaster, mouse = { x : 0, y : 0 };
+var raycaster, mouse = {
+  x: 0,
+  y: 0
+};
 
 function init() {
 
@@ -22,9 +25,10 @@ function init() {
   loadModels();
   createMeshes();
   createRenderer();
+  personAnimation();
 
   raycaster = new THREE.Raycaster();
-  renderer.domElement.addEventListener( 'click', raycast, false );
+  renderer.domElement.addEventListener('click', raycast, false);
 
   renderer.setAnimationLoop(() => {
 
@@ -35,31 +39,29 @@ function init() {
 
 }
 
-function raycast ( e ) {
+function raycast(e) {
   // Step 1: Detect light helper
-      //1. sets the mouse position with a coordinate system where the center
-      //   of the screen is the origin
-      mouse.x = ( e.clientX / window.innerWidth ) * 2 - 1;
-      mouse.y = - ( e.clientY / window.innerHeight ) * 2 + 1;
-  
-      //2. set the picking ray from the camera position and mouse coordinates
-      raycaster.setFromCamera( mouse, camera );    
-  
-      //3. compute intersections (note the 2nd parameter)
-      var intersects = raycaster.intersectObjects( scene.children, true );
-  
-      console.log(intersects[0].object);
-      if(intersects[0].object.name == "vw-transporter-van-free-download_2"){
-        console.log("yay");
-      }
-      else if(intersects[0].object.parent.name == "Harry"){
-        console.log("person")
-      }
-      else{
-        console.log("boo");
-      }
-  
+  //1. sets the mouse position with a coordinate system where the center
+  //   of the screen is the origin
+  mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+
+  //2. set the picking ray from the camera position and mouse coordinates
+  raycaster.setFromCamera(mouse, camera);
+
+  //3. compute intersections (note the 2nd parameter)
+  var intersects = raycaster.intersectObjects(scene.children, true);
+
+
+  if (intersects[0].object.name == "vw-transporter-van-free-download_2") {
+    console.log("van");
+  } else if (intersects[0].object.parent.name == "Harry") {
+    console.log("person")
+  } else {
+    console.log("ground");
   }
+
+}
 
 
 function createCamera() {
@@ -234,21 +236,21 @@ function loadModels() {
 
     var positionKF = new THREE.VectorKeyframeTrack('.position', [0, 1, 2], [0.5, 0, -4, 0.5, 0, -1, 0.5, 0, -1]);
 
-  
+
     // create an animation sequence with the tracks
     // If a negative time value is passed, the duration will be calculated from the times of the passed tracks array
     var clip = new THREE.AnimationClip('Action', 3, [positionKF]);
-  
+
     // setup the THREE.AnimationMixer
     mixer = new THREE.AnimationMixer(model);
-  
+
     // create a ClipAction and set it to play
     var clipAction = mixer.clipAction(clip);
-    
-    clipAction.setLoop( THREE.LoopOnce )
+
+    clipAction.setLoop(THREE.LoopOnce)
     clipAction.clampWhenFinished = true
     clipAction.enable = true
-  
+
     clipAction.play();
 
     scene.add(model);
@@ -272,23 +274,24 @@ function loadModels() {
 }
 
 
-function update() {
+function update() {}
 
-
-
+function personAnimation() {
+  var person = scene.children[3].children[0];
+  var positionKF = new THREE.VectorKeyframeTrack('.position', [0, 1, 2], [0, 0, 0, 0, 0.5, 0, 0, 0, 0]);
 }
 
 function render() {
 
-  
+
   var delta = clock.getDelta();
 
-				if ( mixer ) {
+  if (mixer) {
 
-					mixer.update( delta );
+    mixer.update(delta);
 
-				}
-        renderer.render(scene, camera);
+  }
+  renderer.render(scene, camera);
 }
 
 
