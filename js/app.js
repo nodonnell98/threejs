@@ -208,7 +208,7 @@ function createRenderer() {
 // avoid heavy computation here
 function update() {
   
- scene.rotation.y += 0.005;
+scene.rotation.y += 0.005;
   
   // Don't delete this function!
   
