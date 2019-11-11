@@ -7,7 +7,7 @@ let scene;
 let mesh;
 let button = document.getElementById('colourBtn');
 let inputX = document.getElementById('inputX');
-let rotation = 0.005;
+let rotation = 0.01;
 
 function init() {
 
@@ -111,9 +111,9 @@ function createRenderer() {
 // perform any updates to the scene, called once per frame
 // avoid heavy computation here
 function update() {
-  mesh.rotation.z += rotation;
-  mesh.rotation.x += rotation;
-  mesh.rotation.y += rotation;
+  mesh.rotation.z += 0.005;
+  mesh.rotation.x += 0.005;
+  mesh.rotation.y += 0.005;
   
   // Don't delete this function!
   
@@ -158,9 +158,5 @@ var colourChange = function(event) {
 
   button.addEventListener('click', colourChange, false);
 
-  var changeRotation = function(event){
-    rotation = inputX.innerHTML;
-  }
 
-  inputX.addEventListener('change', changeRotation, false);
-
+  
