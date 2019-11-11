@@ -61,7 +61,7 @@ body {
   }
 
   .spacer1{
-    flex: 1;
+    flex: 3;
   }
 
   #inputX{    
@@ -72,16 +72,15 @@ body {
   }
   
 
-  #colourBtn{
+  #speedInput{
     font-size: 1.7rem;      
-    border-radius: 30px;
+    
     padding: 10px 20px 10px 20px;    
     text-align: center;
-    background-color: #ff3333;
-    border: none;
+    background-color: #ff333388;
     margin-left: 0;
     transition: 300ms;
   }
 
-  #colourBtn:focus {outline:0;}
+  #speedInput:focus {outline:0;}
  

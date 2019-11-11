@@ -4,7 +4,8 @@ let camera;
 let controls;
 let renderer;
 let scene;
-
+let animationSpeed = 1;
+const speedInput = document.getElementById("speedInput");
 const mixers = [];
 const clock = new THREE.Clock();
 
@@ -138,7 +139,7 @@ function update() {
   const delta = clock.getDelta();
 
   for(const mixer of mixers){
-    mixer.update(delta);
+    mixer.update(delta*animationSpeed);
   }
   
 }
@@ -171,5 +172,9 @@ window.addEventListener( 'resize', onWindowResize );
 init();
 
 
+
+speedInput.addEventListener('change', event => {
+ animationSpeed = parseFloat(speedInput.value);
+});
 
   
