@@ -25,7 +25,7 @@ function init() {
   loadModels();
   createMeshes();
   createRenderer();
-  personAnimation();
+  
 
   raycaster = new THREE.Raycaster();
   renderer.domElement.addEventListener('click', raycast, false);
@@ -57,6 +57,7 @@ function raycast(e) {
     console.log("van");
   } else if (intersects[0].object.parent.name == "Harry") {
     console.log("person")
+    personAnimation();
   } else {
     console.log("ground");
   }
@@ -277,8 +278,11 @@ function loadModels() {
 function update() {}
 
 function personAnimation() {
+  
   var person = scene.children[3].children[0];
-  var positionKF = new THREE.VectorKeyframeTrack('.position', [0, 1, 2], [0, 0, 0, 0, 0.5, 0, 0, 0, 0]);
+  
+  person.translateY(0.1);
+  
 }
 
 function render() {
