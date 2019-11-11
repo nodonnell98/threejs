@@ -110,6 +110,8 @@ function loadModels() {
 
   const storkPosition = new THREE.Vector3( -10, 5, -10 );
   loader.load('models/Stork.glb', gltf => onLoad( gltf, storkPosition ), onProgress, onError );
+
+  
   
   
 }
@@ -173,8 +175,8 @@ init();
 
 
 
-speedInput.addEventListener('change', event => {
+/*speedInput.addEventListener('change', event => {
  animationSpeed = parseFloat(speedInput.value);
-});
+});*/
 
   
